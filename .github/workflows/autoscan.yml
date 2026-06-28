@@ -1,0 +1,32 @@
+name: StockScan Autoscan
+
+# Runs on GitHub's servers — fires even when your machine is off.
+on:
+  schedule:
+    # 05:30 UTC = 11:00 IST, every alternate day (day-of-month step of 2).
+    - cron: "30 5 */2 * *"
+  workflow_dispatch:        # manual "Run workflow" button in the Actions tab
+
+jobs:
+  autoscan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        working-directory: backend
+        run: pip install -r requirements.txt
+
+      - name: Run order-intelligence scan + email digest
+        working-directory: backend
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SCAN_QUERY: ${{ vars.SCAN_QUERY }}
+          DHAN_FEED_URL: ${{ vars.DHAN_FEED_URL }}
+        run: python autoscan.py
