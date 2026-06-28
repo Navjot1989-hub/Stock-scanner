@@ -1,0 +1,1 @@
+"""StockScan India backend package."""
