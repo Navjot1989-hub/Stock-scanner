@@ -3,7 +3,7 @@ name: StockScan Autoscan
 # Runs on GitHub's servers — fires even when your machine is off.
 on:
   schedule:
-    # 05:30 UTC = 11:00 IST, every alternate day (day-of-month step of 2).
+    # 05:30 UTC = 11:00 IST, every day (day-of-month step of 2).
     - cron: "30 5 * * *"
   workflow_dispatch:        # manual "Run workflow" button in the Actions tab
 
