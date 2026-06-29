@@ -4,7 +4,7 @@ name: StockScan Autoscan
 on:
   schedule:
     # 05:30 UTC = 11:00 IST, every alternate day (day-of-month step of 2).
-    - cron: "30 5 */2 * *"
+    - cron: "30 5 * * *"
   workflow_dispatch:        # manual "Run workflow" button in the Actions tab
 
 jobs:
